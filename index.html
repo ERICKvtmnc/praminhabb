@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Aleh 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --plum: #4a0e6e;
+    --violet: #7b2fa8;
+    --lavender: #b87fd4;
+    --lilac: #d4a8e8;
+    --blush: #f0daf8;
+    --soft-white: #fdf8ff;
+    --gold: #e8c9f0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #0d0010;
+    color: #f5e8ff;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #e0aaff, #b87fd4);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    mix-blend-mode: screen;
+  }
+
+  /* Starfield canvas */
+  #stars-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Floating hearts */
+  .floating-hearts {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .fheart {
+    position: absolute;
+    bottom: -60px;
+    font-size: 1.2rem;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-110vh) rotate(360deg) scale(1.1); opacity: 0; }
+  }
+
+  section { position: relative; z-index: 2; }
+
+  /* ─── HERO ─────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(123,47,168,0.35) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 80%, rgba(74,14,110,0.4) 0%, transparent 60%);
+  }
+  .hero-ornament {
+    font-size: 2.5rem;
+    letter-spacing: 0.4em;
+    color: var(--lavender);
+    opacity: 0;
+    animation: fadeSlideDown 1.2s ease forwards 0.3s;
+    margin-bottom: 1.5rem;
+  }
+  #hero h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #e0aaff 0%, #b87fd4 40%, #f8d0ff 80%, #e0aaff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
+    opacity: 0;
+    animation: fadeSlideDown 1.4s ease forwards 0.6s;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px rgba(184,127,212,0.5));
+  }
+  #hero .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-style: italic;
+    color: var(--lilac);
+    margin-top: 1.2rem;
+    opacity: 0;
+    animation: fadeSlideDown 1.4s ease forwards 1s;
+    letter-spacing: 0.05em;
+  }
+  .hero-divider {
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lavender), transparent);
+    margin: 2rem auto;
+    opacity: 0;
+    animation: fadeSlideDown 1.4s ease forwards 1.4s;
+  }
+  .scroll-cue {
+    opacity: 0;
+    animation: fadeSlideDown 1.4s ease forwards 1.8s, bob 2s ease-in-out infinite 3s;
+    font-size: 1.5rem;
+    color: var(--lavender);
+  }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  @keyframes fadeSlideDown {
+    from { opacity:0; transform: translateY(-20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity:0; transform: translateY(30px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity:0; }
+    to   { opacity:1; }
+  }
+
+  /* ─── SECTION BASE ─────────────────── */
+  .section-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+  .section-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--lavender);
+    margin-bottom: 1rem;
+    opacity: 0;
+  }
+  .section-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: #e8c0ff;
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+    opacity: 0;
+  }
+  .section-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    line-height: 1.95;
+    color: #ddbff0;
+    opacity: 0;
+  }
+  .section-text p { margin-bottom: 1.4em; }
+  .section-text em {
+    font-style: italic;
+    color: #f0d0ff;
+  }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── DIVIDERS ─────────────────────── */
+  .soft-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184,127,212,0.4), transparent);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .heart-divider {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--lavender);
+    letter-spacing: 0.6em;
+    padding: 1rem 0;
+    position: relative; z-index: 2;
+  }
+
+  /* ─── OUR STORY ────────────────────── */
+  #story { background: linear-gradient(180deg, transparent, rgba(74,14,110,0.12) 50%, transparent); }
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--violet), var(--lavender), var(--violet), transparent);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+    opacity: 0;
+  }
+  .tl-item::before {
+    content: '✦';
+    position: absolute;
+    left: -0.55rem;
+    top: 0.1rem;
+    color: var(--lavender);
+    font-size: 0.8rem;
+  }
+  .tl-item h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: #e8c0ff;
+    margin-bottom: 0.4rem;
+  }
+  .tl-item p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #ddbff0;
+    line-height: 1.8;
+  }
+
+  /* ─── SOBRE VOCÊ ───────────────────── */
+  #sobre { background: linear-gradient(180deg, transparent, rgba(123,47,168,0.08) 50%, transparent); }
+  .traits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .trait-card {
+    background: rgba(123,47,168,0.1);
+    border: 1px solid rgba(184,127,212,0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+  }
+  .trait-card:hover {
+    border-color: rgba(184,127,212,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(123,47,168,0.3);
+  }
+  .trait-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .trait-card h4 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+    color: #e8c0ff;
+    margin-bottom: 0.4rem;
+  }
+  .trait-card p { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: #c8a0e0; line-height: 1.6; }
+
+  /* ─── CARTA ─────────────────────────── */
+  #carta {
+    background: linear-gradient(180deg, transparent, rgba(74,14,110,0.2) 30%, rgba(74,14,110,0.2) 70%, transparent);
+    position: relative;
+  }
+  #carta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(123,47,168,0.12) 0%, transparent 70%);
+  }
+  .carta-container {
+    background: rgba(13, 0, 16, 0.6);
+    border: 1px solid rgba(184,127,212,0.25);
+    border-radius: 24px;
+    padding: 3rem 3rem;
+    position: relative;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 80px rgba(123,47,168,0.2), inset 0 0 60px rgba(74,14,110,0.1);
+  }
+  .carta-container::before, .carta-container::after {
+    content: '❧';
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(184,127,212,0.3);
+  }
+  .carta-container::before { top: 1.5rem; left: 1.5rem; }
+  .carta-container::after  { bottom: 1.5rem; right: 1.5rem; transform: rotate(180deg); }
+  .carta-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+    line-height: 2.1;
+    color: #e0ccf0;
+  }
+  .carta-text p { margin-bottom: 1.6em; }
+  .carta-text .highlight {
+    font-style: italic;
+    color: #f0d8ff;
+    font-size: 1.1em;
+  }
+  .carta-sign {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: var(--lilac);
+    text-align: right;
+    margin-top: 2rem;
+  }
+
+  /* ─── VIDEO ─────────────────────────── */
+  #video-section {
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+  .video-label {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #e8c0ff;
+    margin-bottom: 2rem;
+    display: block;
+  }
+  .video-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(184,127,212,0.3);
+    box-shadow: 0 0 60px rgba(123,47,168,0.3);
+    background: rgba(13,0,16,0.8);
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-placeholder {
+    text-align: center;
+    color: rgba(184,127,212,0.5);
+    padding: 2rem;
+  }
+  .video-placeholder .play-icon { font-size: 4rem; margin-bottom: 1rem; display: block; }
+  .video-placeholder p { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; }
+  .video-wrapper video, .video-wrapper iframe {
+    width: 100%; height: 100%; display: block;
+  }
+
+  /* ─── CONTADOR ──────────────────────── */
+  #contador {
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(123,47,168,0.15) 50%, transparent);
+  }
+  .counter-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+  .counter-item { text-align: center; }
+  .counter-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 300;
+    background: linear-gradient(135deg, #e0aaff, #b87fd4, #f8d0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    display: block;
+  }
+  .counter-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--lavender);
+    margin-top: 0.4rem;
+    display: block;
+  }
+  .counter-sep { font-size: 3rem; color: rgba(184,127,212,0.3); align-self: center; margin-top: -1rem; }
+
+  /* ─── PROMESSAS ─────────────────────── */
+  #promessas { background: linear-gradient(180deg, transparent, rgba(74,14,110,0.15) 50%, transparent); }
+  .promise-list {
+    list-style: none;
+    margin-top: 2.5rem;
+  }
+  .promise-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid rgba(184,127,212,0.1);
+    opacity: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.18rem);
+    color: #ddbff0;
+    line-height: 1.7;
+    transition: color 0.3s;
+  }
+  .promise-list li:hover { color: #f0d0ff; }
+  .promise-list li:last-child { border-bottom: none; }
+  .promise-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ─── FINAL ─────────────────────────── */
+  #final {
+    text-align: center;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #final::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(123,47,168,0.25) 0%, transparent 70%);
+  }
+  .final-inner { position: relative; z-index: 2; max-width: 700px; padding: 2rem; }
+  .final-crown { font-size: 3rem; margin-bottom: 1.5rem; display: block; animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(184,127,212,0.5))} 50%{transform:scale(1.08);filter:drop-shadow(0 0 20px rgba(184,127,212,0.9))} }
+  .final-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    background: linear-gradient(135deg, #f8d0ff 0%, #e0aaff 40%, #b87fd4 70%, #f8d0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.4;
+    filter: drop-shadow(0 0 20px rgba(184,127,212,0.4));
+  }
+  .final-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--lavender);
+    margin-top: 1.5rem;
+    line-height: 1.8;
+  }
+
+
+
+  /* ─── RESPONSIVE ──────────────────── */
+  @media (max-width: 600px) {
+    .carta-container { padding: 2rem 1.5rem; }
+    .counter-grid { gap: 1.5rem; }
+    .counter-sep { display: none; }
+  }
+
+  /* ─── GLOW ORBS ─────────────────────── */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<canvas id="stars-canvas"></canvas>
+<div class="floating-hearts" id="fhearts"></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="glow-orb" style="width:400px;height:400px;background:rgba(123,47,168,0.25);top:-100px;left:-100px;"></div>
+  <div class="glow-orb" style="width:300px;height:300px;background:rgba(74,14,110,0.3);bottom:-50px;right:-80px;"></div>
+  <p class="hero-ornament">✦ ✦ ✦</p>
+  <h1>Para Aleh,<br>minha princesa 💜</h1>
+  <p class="subtitle">Um pedacinho do meu amor por você</p>
+  <div class="hero-divider"></div>
+  <span class="scroll-cue">↓</span>
+</section>
+
+<div class="soft-divider"></div>
+<div class="heart-divider">💜 &nbsp; 💜 &nbsp; 💜</div>
+<div class="soft-divider"></div>
+
+<!-- ═══════════════ NOSSA HISTÓRIA ═══════════════ -->
+<section id="story">
+  <div class="section-inner">
+    <p class="section-label reveal">Capítulo Um</p>
+    <h2 class="section-title reveal">Nossa História</h2>
+
+    <div class="section-text reveal">
+      <p>Certas histórias não pedem planejamento. Elas simplesmente acontecem, no momento menos esperado, no jeito mais simples possível. A nossa começou com um like. Um comentário seu, uma curtida minha, e o universo fez o resto.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <h3>O começo de tudo</h3>
+        <p>Eu curti um comentário seu. Coisa pequena, coisa de segundo. Mas foi o segundo que mudou tudo. Às vezes penso que, se eu tivesse passado reto, se o dedo tivesse ido pra outro lado, talvez a gente nunca tivesse se encontrado. Mas foi aquele segundo. Aquele like. E aí você veio.</p>
+      </div>
+      <div class="tl-item reveal">
+        <h3>Você me chamou no PV</h3>
+        <p>Uma mensagem. Simples, direta, como você é. E eu não sabia que aquele "oi" ia me prender assim. A gente começou a conversar como quem não quer nada, como quem só testa a água antes de entrar. Mas a água estava quente demais pra sair.</p>
+      </div>
+      <div class="tl-item reveal">
+        <h3>Viramos amigos</h3>
+        <p>Você virou presença. Virou a pessoa que eu queria contar quando algo engraçado acontecia. Virou a voz no meu dia, o nome que eu procurava primeiro quando abria o celular. Amigos era a palavra que a gente usava, mas o coração já sabia que era mais.</p>
+      </div>
+      <div class="tl-item reveal">
+        <h3>Algo muito mais forte nasceu</h3>
+        <p>Não teve um dia exato. Não teve um momento com música de fundo e iluminação perfeita. Foi gradual, foi natural, foi inevitável. Você foi entrando em mim devagar, como a cor favorita que aparece em tudo que você olha. E eu percebi: eu gosto demais dessa pessoa. Eu amo essa pessoa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+<div class="heart-divider">💜 &nbsp; 💜 &nbsp; 💜</div>
+<div class="soft-divider"></div>
+
+<!-- ═══════════════ SOBRE VOCÊ ═══════════════ -->
+<section id="sobre">
+  <div class="section-inner">
+    <p class="section-label reveal">Capítulo Dois</p>
+    <h2 class="section-title reveal">Sobre Você, Aleh</h2>
+
+    <div class="section-text reveal">
+      <p>Você é feita de coisas pequenas que formam algo imenso. Deixa eu te contar como eu te vejo, do jeito que só eu vejo, com os olhos de quem te escolheu.</p>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card reveal">
+        <div class="icon">📚</div>
+        <h4>Amante de livros</h4>
+        <p>Você tem um mundo inteiro dentro de você, e os livros são parte disso. Eu amo imaginar você lendo, absorta em outro universo.</p>
+      </div>
+      <div class="trait-card reveal">
+        <div class="icon">🎵</div>
+        <h4>Alma musical</h4>
+        <p>Música é algo que você carrega junto, e isso diz muito sobre quem você é. Uma pessoa que sente de verdade.</p>
+      </div>
+      <div class="trait-card reveal">
+        <div class="icon">💜</div>
+        <h4>Filha do roxo</h4>
+        <p>Sua cor favorita é roxo, e não é coincidência que seja a cor do que sinto por você. Intensa, profunda, bonita.</p>
+      </div>
+      <div class="trait-card reveal">
+        <div class="icon">🌊</div>
+        <h4>Apaixonada pela praia</h4>
+        <p>Tem algo de livre em você, algo que combina com o mar. Eu quero um dia ver você olhando pro horizonte, com o vento no cabelo.</p>
+      </div>
+      <div class="trait-card reveal">
+        <div class="icon">🐶</div>
+        <h4>Sonha com um cachorrinho</h4>
+        <p>Esse sonho te faz ainda mais gostosa. Porque quem sonha em ter um bichinho pra cuidar, tem um coração que sabe amar.</p>
+      </div>
+      <div class="trait-card reveal">
+        <div class="icon">😤</div>
+        <h4>Um pouquinho estressada</h4>
+        <p>Do jeito mais fofo do mundo. E sabe o que? Eu amo isso. Eu amo te irritar só pra ver sua reação e rir depois com você.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+<div class="heart-divider">💜 &nbsp; 💜 &nbsp; 💜</div>
+<div class="soft-divider"></div>
+
+<!-- ═══════════════ CARTA ═══════════════ -->
+<section id="carta">
+  <div class="section-inner">
+    <p class="section-label reveal">Capítulo Três</p>
+    <h2 class="section-title reveal">Carta pra Você</h2>
+
+    <div class="carta-container reveal">
+      <div class="carta-text">
+        <p>Aleh,</p>
+
+        <p>Eu já escrevi carta pra você antes. Você sabe disso. Mas essa aqui é diferente. Dessa vez eu decidi não segurar nada, não medir palavra, não ficar com medo do que você vai pensar. Essa é a mais honesta que eu já coloquei no papel. E você merece exatamente isso.</p>
+
+        <p>Tem dias que eu fico pensando no quanto a vida é estranha. No quanto as coisas mais importantes da vida chegam pelo menor buraco possível. Um comentário na internet. Uma curtida. Uma mensagem no PV. Quem diria que era assim que eu ia te encontrar? Quem diria que era assim que eu ia encontrar <em>a pessoa</em>?</p>
+
+        <p>Eu penso em você todos os dias. Não de um jeito forçado, não de um jeito que eu decidi. É automático. Acordo e você já tá lá, na primeira dobra do pensamento. Acontece algo engraçado e o primeiro nome que aparece na minha cabeça é o seu. Fico triste e a vontade que bate é de falar com você. Você virou o meu padrão, Aleh. Sem que eu percebesse, você se tornou o ponto de partida de muita coisa dentro de mim.</p>
+
+        <p><em>Eu amo tudo em você.</em> Tudo mesmo. Amo o jeito que você fala, amo quando você fica estressada com alguma coisa pequena e eu fico ali na minha, provocando, e você fica ainda mais brava. Amo que você ama livros e música e que você tem um mundo interno gigante. Amo sua cor favorita. Amo o seu sonho do cachorrinho, porque quem quer um bichinho pra cuidar sabe o que é amor de verdade.</p>
+
+        <p>Amo que você me chamou naquele dia. Que você não ficou esperando. Porque se fosse por mim, talvez eu ficasse com medo e não tivesse feito nada, e aí a gente nunca teria descoberto o que a gente tem. Por isso te agradeço. Por ter sido corajosa quando eu não fui.</p>
+
+        <p>A distância dói, bb. Eu não vou mentir pra você, não vou romantizar algo que é difícil. Tem noites que a ausência pesa. Tem momentos que eu queria tanto estar do seu lado, fisicamente, de verdade, sem tela no meio. Queria poder te abraçar num dia ruim. Queria poder sentar do seu lado no silêncio, sem precisar falar nada, só estar. Mas sabe o que a distância não conseguiu fazer? Não conseguiu diminuir. Não conseguiu enfraquecer. O que eu sinto por você só foi crescendo, só foi ficando mais real, mais sólido, mais certo.</p>
+
+        <p>E isso me diz muita coisa. Porque é fácil gostar de alguém que tá do seu lado. É fácil se apaixonar quando você pode tocar. Mas gostar assim, desse jeito todo, de alguém que tá longe, alguém que você só alcança pela tela, alguém que você não abraçou ainda, isso não é qualquer coisa. Isso é o tipo de sentimento que não precisa de prova, porque ele mesmo é a prova.</p>
+
+        <p><em>Você mudou algo em mim, Aleh.</em> Antes de você, eu era um cara que deixava as coisas passarem. Que não se apegava com medo de se machucar. Que guardava tudo muito dentro. Você foi chegando devagar e fui deixando entrar, quase sem perceber, e quando percebi já estava completamente entregue. E o que mais me surpreende é que não me arrependo. Nem um pouco. Pelo contrário. Fico grato que você fez aquilo, que você foi lá e derrubou o que eu tinha construído pra me proteger. Porque o que tá do outro lado da parede é muito melhor.</p>
+
+        <p>Eu quero fazer você feliz. Mais do que você imagina. Tem uma vontade em mim muito grande de ser alguém que faz seus dias mais leves. Que te faz rir quando você quer chorar. Que tá lá quando tudo parece pesado demais. Que te irrita do jeito certo, que te conhece de verdade, que sabe quando você tá mal mesmo quando você diz que tá bem.</p>
+
+        <p>Quero os momentos simples. Quero conversar contigo sobre nada até ficar tarde. Quero te ver falar de um livro que você amou com aquela animação toda. Quero um dia estar do seu lado enquanto você ouve a sua música favorita. Quero estar por perto quando o cachorrinho que você sempre quis finalmente aparecer na sua vida. Quero ser parte dos dias pequenos, não só dos grandes.</p>
+
+        <p>Você é a melhor pessoa que entrou na minha vida de um jeito que eu não pedi e que agora não imagino mais sem. E eu quero que você saiba disso hoje. Não quando parecer o momento certo, não quando as condições estiverem perfeitas. <em>Hoje.</em> Agora. Porque você merece ouvir isso sempre.</p>
+
+        <p>Eu te amo, minha princesa. Do jeito que você é, com tudo, com o estresse fofo e os livros e a cor roxa e o sonho do cachorrinho e o jeito único que só você tem de existir no mundo. Eu te amo do começo até onde essa história quiser ir.</p>
+
+        <p>E ela vai longe, Aleh. Eu tenho certeza.</p>
+      </div>
+      <p class="carta-sign">Com todo meu amor 💜</p>
+    </div>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+<div class="heart-divider">💜 &nbsp; 💜 &nbsp; 💜</div>
+<div class="soft-divider"></div>
+
+<!-- ═══════════════ VÍDEO ═══════════════ -->
+<section id="video-section">
+  <div class="section-inner" style="text-align:center; padding-top:4rem; padding-bottom:4rem;">
+    <span class="video-label reveal">Um pedacinho de nós 💜</span>
+    <div class="video-wrapper reveal">
+      <video controls>
+        <source src="video.mp4" type="video/mp4">
+        <source src="video.webm" type="video/webm">
+        <source src="video.mov" type="video/quicktime">
+      </video>
+    </div>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+<div class="heart-divider">💜 &nbsp; 💜 &nbsp; 💜</div>
+<div class="soft-divider"></div>
+
+<!-- ═══════════════ CONTADOR ═══════════════ -->
+<section id="contador">
+  <div class="section-inner">
+    <p class="section-label reveal">Desde que tudo começou</p>
+    <h2 class="section-title reveal">Tempo juntos</h2>
+    <p class="section-text reveal" style="text-align:center; max-width:500px; margin:0 auto;">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:#c8a0e0; font-style:italic; text-align:center;">Cada segundo que passa é mais um segundo que eu tenho de te amar.</p>
+    </p>
+    <div class="counter-grid reveal">
+      <div class="counter-item">
+        <span class="counter-num" id="cnt-days">0</span>
+        <span class="counter-label">dias</span>
+      </div>
+      <span class="counter-sep">✦</span>
+      <div class="counter-item">
+        <span class="counter-num" id="cnt-hours">0</span>
+        <span class="counter-label">horas</span>
+      </div>
+      <span class="counter-sep">✦</span>
+      <div class="counter-item">
+        <span class="counter-num" id="cnt-minutes">0</span>
+        <span class="counter-label">minutos</span>
+      </div>
+      <span class="counter-sep">✦</span>
+      <div class="counter-item">
+        <span class="counter-num" id="cnt-seconds">0</span>
+        <span class="counter-label">segundos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+<div class="heart-divider">💜 &nbsp; 💜 &nbsp; 💜</div>
+<div class="soft-divider"></div>
+
+<!-- ═══════════════ PROMESSAS ═══════════════ -->
+<section id="promessas">
+  <div class="section-inner">
+    <p class="section-label reveal">Capítulo Quatro</p>
+    <h2 class="section-title reveal">Minhas Promessas</h2>
+    <div class="section-text reveal">
+      <p>Não tenho como te dar o mundo inteiro agora, mas posso te dar isso aqui: as minhas palavras, do fundo de onde elas vêm.</p>
+    </div>
+    <ul class="promise-list">
+      <li class="reveal"><span class="promise-icon">💜</span><span>Prometo sempre estar ao seu lado, mesmo quando tudo parecer difícil e o caminho não estiver claro. Você não vai andar sozinha.</span></li>
+      <li class="reveal"><span class="promise-icon">😄</span><span>Prometo te fazer sorrir, até nos dias em que você estiver estressada. Ou seja, sempre. Mas especialmente quando você mais precisar.</span></li>
+      <li class="reveal"><span class="promise-icon">🤝</span><span>Prometo nunca desistir da gente. Porque o que a gente tem não é coisa que se joga fora. É coisa que se cuida.</span></li>
+      <li class="reveal"><span class="promise-icon">😈</span><span>Prometo continuar te irritando, porque eu amo demais a sua reação, e porque isso é uma das minhas formas favoritas de te dizer que tô aqui.</span></li>
+      <li class="reveal"><span class="promise-icon">🤍</span><span>Prometo cuidar de você com todo o meu amor. Nos dias bons e especialmente nos dias ruins, quando você precisar de alguém que segure junto com você.</span></li>
+      <li class="reveal"><span class="promise-icon">🌅</span><span>Prometo construir um futuro com você. Não sei como vai ser, não sei quando vai ser, mas sei que quero você nele. E isso é o suficiente pra começar.</span></li>
+      <li class="reveal"><span class="promise-icon">🐾</span><span>Prometo estar do seu lado no dia em que o cachorrinho finalmente chegar. E prometo não ter ciúmes dele, mas não garanto nada.</span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+
+<!-- ═══════════════ FINAL ═══════════════ -->
+<section id="final">
+  <div class="glow-orb" style="width:500px;height:500px;background:rgba(123,47,168,0.2);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="final-inner">
+    <span class="final-crown reveal">👑</span>
+    <h2 class="final-text reveal">Eu amo tudo em você.<br>Tudo mesmo.</h2>
+    <p class="final-sub reveal">Cada detalhe, cada defeito fofo, cada jeito único que só você tem.<br>Você é minha princesa, minha Aleh, meu amor.<br><br>E isso nunca vai mudar.</p>
+    <div style="margin-top:2.5rem; font-size:2rem; letter-spacing:0.5em; animation: pulse 3s ease-in-out infinite;" class="reveal">💜 💜 💜</div>
+  </div>
+</section>
+
+<script>
+/* ─── CURSOR ─── */
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+});
+
+/* ─── STARS ─── */
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, stars = [];
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 180; i++) {
+    stars.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.2 + 0.2,
+      a: Math.random(),
+      speed: Math.random() * 0.3 + 0.05,
+      da: (Math.random() - 0.5) * 0.005
+    });
+  }
+}
+function drawStars() {
+  ctx.clearRect(0, 0, W, H);
+  stars.forEach(s => {
+    s.a += s.da;
+    if (s.a > 1 || s.a < 0) s.da *= -1;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(200,160,240,${Math.max(0,Math.min(1,s.a))})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+resize();
+initStars();
+drawStars();
+window.addEventListener('resize', () => { resize(); initStars(); });
+
+/* ─── FLOATING HEARTS ─── */
+const fhContainer = document.getElementById('fhearts');
+const symbols = ['💜','✦','✧','♡','❦','✿'];
+function spawnHeart() {
+  const el = document.createElement('span');
+  el.className = 'fheart';
+  el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  const dur = 8 + Math.random() * 10;
+  el.style.animationDuration = dur + 's';
+  el.style.animationDelay = Math.random() * 2 + 's';
+  el.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+  fhContainer.appendChild(el);
+  setTimeout(() => el.remove(), (dur + 3) * 1000);
+}
+setInterval(spawnHeart, 1200);
+for (let i = 0; i < 8; i++) setTimeout(spawnHeart, i * 400);
+
+/* ─── SCROLL REVEAL ─── */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => io.observe(el));
+
+/* ─── COUNTER ─── */
+function updateCounter() {
+  const start = new Date('2026-01-19T00:00:00');
+  const now   = new Date();
+  const diff  = now - start;
+  if (diff < 0) return;
+  const days    = Math.floor(diff / 86400000);
+  const hours   = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cnt-days').textContent    = days;
+  document.getElementById('cnt-hours').textContent   = hours;
+  document.getElementById('cnt-minutes').textContent = minutes;
+  document.getElementById('cnt-seconds').textContent = String(seconds).padStart(2, '0');
+}
+updateCounter();
+setInterval(updateCounter, 1000);
+
+
+</script>
+</body>
+</html>
